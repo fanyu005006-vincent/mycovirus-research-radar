@@ -1,5 +1,45 @@
 {
   "topics": {
+    "mycoviruses": {
+      "label": "真菌病毒（第一优先级）",
+      "keywords": [
+        "mycovirus fungal virome",
+        "mycovirus hypovirulence biological control",
+        "mycovirus plant pathogenic fungi",
+        "fungal antiviral RNA interference"
+      ],
+      "weight": 1.0
+    },
+    "plant-viruses": {
+      "label": "植物病毒（第二优先级）",
+      "keywords": [
+        "plant virus crop disease",
+        "plant antiviral immunity",
+        "plant virus vector transmission",
+        "emerging plant virus"
+      ],
+      "weight": 1.0
+    },
+    "animal-viruses": {
+      "label": "动物病毒（第三优先级）",
+      "keywords": [
+        "animal virus veterinary virology",
+        "livestock viral disease",
+        "wildlife virus surveillance",
+        "animal virus host interaction"
+      ],
+      "weight": 1.0
+    },
+    "human-viruses": {
+      "label": "人类病毒（第四优先级）",
+      "keywords": [
+        "human virus infectious disease",
+        "human antiviral immunity",
+        "human viral vaccine antiviral",
+        "human emerging virus"
+      ],
+      "weight": 1.0
+    },
     "emerging-viruses": {
       "label": "新发与再发病毒",
       "keywords": [
@@ -40,26 +80,6 @@
       ],
       "weight": 0.9
     },
-    "plant-viruses": {
-      "label": "植物病毒与作物健康",
-      "keywords": [
-        "plant virus crop disease",
-        "plant antiviral immunity",
-        "plant virus vector transmission",
-        "emerging plant virus"
-      ],
-      "weight": 1.0
-    },
-    "mycoviruses": {
-      "label": "真菌病毒与植物病理",
-      "keywords": [
-        "mycovirus fungal virome",
-        "mycovirus hypovirulence biological control",
-        "mycovirus plant pathogenic fungi",
-        "fungal antiviral RNA interference"
-      ],
-      "weight": 1.0
-    },
     "bacteriophages": {
       "label": "噬菌体与病毒生态",
       "keywords": [
@@ -83,7 +103,7 @@
   },
   "paper_count": {
     "mode": "at_most",
-    "value": 15
+    "value": 10
   },
   "picks_per_reviewer": 10,
   "review_mode": "single",
