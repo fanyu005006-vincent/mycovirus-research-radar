@@ -21,6 +21,7 @@ EXPECTED_TOOLS = {
     "rank_papers",
     "filter_duplicates",
     "generate_digest",
+    "generate_daily_report",
     "send_push",
     "collect_to_zotero",
     "manage_topics",
