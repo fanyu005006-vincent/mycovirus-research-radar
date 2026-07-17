@@ -117,7 +117,7 @@ def score_relevance(paper: dict, prefs: dict) -> float:
         " ".join([
             paper.get("title", ""),
             paper.get("abstract", ""),
-            " ".join(paper.get("topic_tags", [])),
+            paper.get("tldr", ""),
         ])
     )
 
