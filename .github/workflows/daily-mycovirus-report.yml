@@ -1,4 +1,4 @@
-name: Daily mycovirus research report
+name: Daily virology research report
 
 on:
   schedule:
@@ -26,10 +26,10 @@ jobs:
           S2_API_KEY: ${{ secrets.S2_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/daily_radar.py
+        run: python scripts/daily_radar.py --profile profiles/virology-hotspots.json --top 15
       - uses: actions/upload-artifact@v4
         with:
-          name: mycovirus-daily-report-${{ github.run_id }}
+          name: virology-daily-report-${{ github.run_id }}
           path: output/daily-reports/
           retention-days: 90
           if-no-files-found: error
