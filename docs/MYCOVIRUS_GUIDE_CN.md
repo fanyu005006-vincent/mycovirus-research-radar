@@ -2,6 +2,8 @@
 
 本仓库基于 Paper Distill MCP，针对植物病理学与真菌病毒研究预置了检索主题和筛选偏好。系统会并行检索 OpenAlex、PubMed、Europe PMC、Crossref、bioRxiv、Semantic Scholar 等来源，去重、排序后推送论文摘要，并可衔接 Zotero 与 Obsidian。
 
+仓库同时提供 `profiles/virology-hotspots.json`，用于监测整个病毒学领域热点；它覆盖新发病毒、宿主免疫、抗病毒药物与疫苗、病毒进化、植物病毒、真菌病毒、噬菌体及结构病毒学。
+
 ## 预置关注方向
 
 - 真菌病毒发现、宏转录组与 mycovirome 多样性
@@ -78,7 +80,7 @@ DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/..."
 本地生成日报：
 
 ```bash
-python scripts/daily_radar.py
+python scripts/daily_radar.py --profile profiles/virology-hotspots.json --top 15 --years 2
 ```
 
 输出位于 `output/daily-reports/YYYY-MM-DD.json` 和 `YYYY-MM-DD.md`。Markdown 包含 YAML 属性，可直接放进 Obsidian；JSON 适合接网站、数据库或其他自动化。
