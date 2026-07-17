@@ -1,5 +1,7 @@
 # 📚 Paper Distill MCP Server
 
+> 🌱 **Mycovirus research edition:** this fork includes a ready-to-use plant pathology and mycovirus profile at [`profiles/mycovirus.json`](profiles/mycovirus.json), plus a [Chinese setup and delivery guide](docs/MYCOVIRUS_GUIDE_CN.md). It covers mycovirus discovery, plant-pathogenic fungi, hypovirulence/biocontrol, virus-host interactions, and virus taxonomy/evolution.
+
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![PyPI version](https://img.shields.io/pypi/v/paper-distill-mcp.svg)](https://pypi.org/project/paper-distill-mcp/)
