@@ -57,6 +57,13 @@ FIELD_CITATION_CAPS: dict[str, float] = {
     "default":     200,
 }
 
+IMPORTANCE_LEVELS = (
+    (75, "S", "重点必读"),
+    (60, "A", "高度重要"),
+    (40, "B", "值得关注"),
+    (0, "C", "一般参考"),
+)
+
 
 # ── helpers ────────────────────────────────────────────────────────────────
 
@@ -152,7 +159,11 @@ def score_recency(paper: dict, now: datetime | None = None) -> float:
 
     date_str = paper.get("published_date") or paper.get("date") or ""
     if not date_str:
-        return 0.5  # unknown date -> neutral
+        year = paper.get("year")
+        if year:
+            date_str = f"{year}-01-01"
+        else:
+            return 0.5  # unknown date -> neutral
 
     try:
         pub = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
@@ -201,6 +212,39 @@ def score_novelty(paper: dict, seen_dois: set[str]) -> float:
     return 0.0 if doi in seen_dois else 1.0
 
 
+def describe_importance(scores: dict[str, float]) -> dict:
+    """Convert normalized components into an explainable 0–100 rating."""
+    score_100 = round(scores["total"] * 100, 1)
+    level, label = "C", "一般参考"
+    for threshold, candidate_level, candidate_label in IMPORTANCE_LEVELS:
+        if score_100 >= threshold:
+            level, label = candidate_level, candidate_label
+            break
+
+    reasons = []
+    if scores["relevance"] >= 0.75:
+        reasons.append("与核心研究主题高度相关")
+    elif scores["relevance"] >= 0.4:
+        reasons.append("与研究主题有明确关联")
+    if scores["recency"] >= 0.8:
+        reasons.append("近期发表")
+    if scores["impact"] >= 0.6:
+        reasons.append("引用影响力较高")
+    elif scores["impact"] >= 0.3:
+        reasons.append("已有一定引用关注")
+    if scores["novelty"] >= 1:
+        reasons.append("尚未推送的新文献")
+    if not reasons:
+        reasons.append("综合指标达到当前等级")
+
+    return {
+        "score": score_100,
+        "level": level,
+        "label": label,
+        "reasons": reasons,
+    }
+
+
 # ── main ranking ───────────────────────────────────────────────────────────
 
 def rank_papers(
@@ -244,6 +288,7 @@ def rank_papers(
             "novelty":   round(nov, 4),
             "total":     round(total, 4),
         }
+        paper_copy["importance"] = describe_importance(paper_copy["_scores"])
         scored.append(paper_copy)
 
     scored.sort(key=lambda p: p["_scores"]["total"], reverse=True)
