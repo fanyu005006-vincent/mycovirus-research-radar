@@ -25,6 +25,13 @@ VIROLOGY_MARKERS = (
     "coronavirus", "retrovirus", "herpesvirus", "papillomavirus",
 )
 
+PRIORITY_CATEGORIES = {
+    "mycoviruses": (1, "真菌病毒"),
+    "plant-viruses": (2, "植物病毒"),
+    "animal-viruses": (3, "动物病毒"),
+    "human-viruses": (4, "人类病毒"),
+}
+
 
 def _identity(paper: dict) -> str:
     doi = (paper.get("doi") or "").strip().lower()
@@ -64,6 +71,19 @@ def is_recent_paper(paper: dict, report_year: int, years: int) -> bool:
         return True
 
 
+def assign_priority_category(paper: dict) -> dict:
+    """Assign the first matching user-defined subject priority."""
+    tags = set(paper.get("topic_tags", []))
+    priority, label = 5, "其他病毒学"
+    for key, (candidate_priority, candidate_label) in PRIORITY_CATEGORIES.items():
+        if key in tags and candidate_priority < priority:
+            priority, label = candidate_priority, candidate_label
+    item = dict(paper)
+    item["priority_category"] = label
+    item["priority_order"] = priority
+    return item
+
+
 async def collect(profile: dict, per_topic: int) -> list[dict]:
     merged: dict[str, dict] = {}
     for key, topic in profile.get("topics", {}).items():
@@ -101,7 +121,13 @@ async def run(args: argparse.Namespace) -> dict:
         w_recency=weights.get("recency", 0.20),
         w_impact=weights.get("impact", 0.15),
         w_novelty=weights.get("novelty", 0.10),
-    )[: args.top]
+    )
+    ranked = [assign_priority_category(paper) for paper in ranked]
+    ranked.sort(key=lambda paper: (
+        paper["priority_order"],
+        -paper.get("importance", {}).get("score", 0),
+    ))
+    ranked = ranked[: args.top]
     paths = write_daily_report(ranked, args.date, args.output_dir, top_n=args.top)
 
     token = os.getenv("TELEGRAM_BOT_TOKEN")
