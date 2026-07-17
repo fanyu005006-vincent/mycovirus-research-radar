@@ -80,12 +80,14 @@ DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/..."
 本地生成日报：
 
 ```bash
-python scripts/daily_radar.py --profile profiles/virology-hotspots.json --top 15 --years 2
+python scripts/daily_radar.py --profile profiles/virology-hotspots.json --top 10 --years 2
+
+默认每周推送 10 篇，先按研究对象排序，再在同一类别内按重要度评分排序：真菌病毒 → 植物病毒 → 动物病毒 → 人类病毒 → 其他病毒学。
 ```
 
 输出位于 `output/daily-reports/YYYY-MM-DD.json` 和 `YYYY-MM-DD.md`。Markdown 包含 YAML 属性，可直接放进 Obsidian；JSON 适合接网站、数据库或其他自动化。
 
-仓库自带 `.github/workflows/daily-mycovirus-report.yml`，默认每天北京时间 07:30 运行，并将日报作为 GitHub Actions artifact 保存 90 天。也可在 Actions 页面手动运行。
+仓库自带 `.github/workflows/daily-mycovirus-report.yml`，默认每周一北京时间 07:30 运行，并将周报作为 GitHub Actions artifact 保存 90 天。也可在 Actions 页面手动运行。
 
 ### GitHub Secrets
 
