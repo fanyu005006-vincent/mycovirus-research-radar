@@ -1,0 +1,35 @@
+name: Weekly virology research report
+
+on:
+  schedule:
+    # Sunday 23:30 UTC = Monday 07:30 China Standard Time
+    - cron: "30 23 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install .
+      - name: Collect, score and generate report
+        env:
+          OPENALEX_EMAIL: ${{ secrets.OPENALEX_EMAIL }}
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/daily_radar.py --profile profiles/virology-hotspots.json --top 10
+      - uses: actions/upload-artifact@v4
+        with:
+          name: virology-weekly-report-${{ github.run_id }}
+          path: output/daily-reports/
+          retention-days: 90
+          if-no-files-found: error

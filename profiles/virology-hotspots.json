@@ -1,0 +1,118 @@
+{
+  "topics": {
+    "mycoviruses": {
+      "label": "真菌病毒（第一优先级）",
+      "keywords": [
+        "mycovirus fungal virome",
+        "mycovirus hypovirulence biological control",
+        "mycovirus plant pathogenic fungi",
+        "fungal antiviral RNA interference"
+      ],
+      "weight": 1.0
+    },
+    "plant-viruses": {
+      "label": "植物病毒（第二优先级）",
+      "keywords": [
+        "plant virus crop disease",
+        "plant antiviral immunity",
+        "plant virus vector transmission",
+        "emerging plant virus"
+      ],
+      "weight": 1.0
+    },
+    "animal-viruses": {
+      "label": "动物病毒（第三优先级）",
+      "keywords": [
+        "animal virus veterinary virology",
+        "livestock viral disease",
+        "wildlife virus surveillance",
+        "animal virus host interaction"
+      ],
+      "weight": 1.0
+    },
+    "human-viruses": {
+      "label": "人类病毒（第四优先级）",
+      "keywords": [
+        "human virus infectious disease",
+        "human antiviral immunity",
+        "human viral vaccine antiviral",
+        "human emerging virus"
+      ],
+      "weight": 1.0
+    },
+    "emerging-viruses": {
+      "label": "新发与再发病毒",
+      "keywords": [
+        "emerging virus outbreak",
+        "zoonotic virus spillover",
+        "novel virus surveillance",
+        "viral epidemic genomic surveillance"
+      ],
+      "weight": 1.0
+    },
+    "virus-host-immunity": {
+      "label": "病毒—宿主互作与免疫",
+      "keywords": [
+        "virus host interaction innate immunity",
+        "viral immune evasion",
+        "antiviral restriction factor",
+        "virus receptor entry mechanism"
+      ],
+      "weight": 1.0
+    },
+    "antiviral-vaccine": {
+      "label": "抗病毒药物与疫苗",
+      "keywords": [
+        "broad spectrum antiviral",
+        "antiviral drug resistance",
+        "next generation viral vaccine",
+        "neutralizing antibody virus"
+      ],
+      "weight": 0.95
+    },
+    "virus-evolution-genomics": {
+      "label": "病毒进化、基因组与分类",
+      "keywords": [
+        "virus evolution phylogenomics",
+        "viral metagenomics novel virus",
+        "virus recombination reassortment",
+        "virus taxonomy genome organization"
+      ],
+      "weight": 0.9
+    },
+    "bacteriophages": {
+      "label": "噬菌体与病毒生态",
+      "keywords": [
+        "bacteriophage phage therapy",
+        "phage host interaction",
+        "viral ecology virome",
+        "marine virus microbial ecology"
+      ],
+      "weight": 0.8
+    },
+    "structural-molecular-virology": {
+      "label": "结构与分子病毒学",
+      "keywords": [
+        "virus structure cryo-EM",
+        "viral replication mechanism",
+        "viral polymerase structure",
+        "virus assembly maturation"
+      ],
+      "weight": 0.85
+    }
+  },
+  "paper_count": {
+    "mode": "at_most",
+    "value": 10
+  },
+  "picks_per_reviewer": 10,
+  "review_mode": "single",
+  "scan_batches": 4,
+  "custom_focus": "Identify daily virology research hotspots across human, animal, plant, fungal and bacterial-virus systems. Prioritize original studies, major methodological advances, emerging pathogens, mechanistic breakthroughs, cross-host insights and findings with broad scientific or public-health relevance. Keep plant viruses and mycoviruses visible. Down-rank routine case reports, low-information surveillance records and papers unrelated to viruses.",
+  "ranking_weights": {
+    "relevance": 0.4,
+    "recency": 0.35,
+    "impact": 0.15,
+    "novelty": 0.1
+  }
+}

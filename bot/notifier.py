@@ -24,6 +24,8 @@ def format_paper_card(idx: int, paper: dict) -> str:
     tldr = paper.get("tldr", "")
     inspiration = paper.get("inspiration", "") or paper.get("relevance_note", "")
     doi = paper.get("doi", "")
+    importance = paper.get("importance", {})
+    priority_category = paper.get("priority_category", "")
 
     # Build compact card
     lines = []
@@ -46,6 +48,14 @@ def format_paper_card(idx: int, paper: dict) -> str:
         meta.append(f"IF {impact_factor}")
     if meta:
         lines.append(f"    📖 {' · '.join(meta)}")
+
+    if importance:
+        lines.append(
+            f"    ⭐ {importance.get('score', 0)}/100 · "
+            f"{importance.get('level', 'C')}级 · {importance.get('label', '')}"
+        )
+    if priority_category:
+        lines.append(f"    🧭 {priority_category}")
 
     # TLDR
     if tldr:

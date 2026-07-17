@@ -1,0 +1,73 @@
+{
+  "topics": {
+    "mycovirus-discovery": {
+      "label": "真菌病毒发现与多样性",
+      "keywords": [
+        "mycovirus",
+        "fungal virome",
+        "mycovirome",
+        "fungal virus diversity",
+        "dsRNA virus fungi"
+      ],
+      "weight": 1.0
+    },
+    "plant-pathogenic-fungi": {
+      "label": "植物病原真菌及其病毒",
+      "keywords": [
+        "mycovirus plant pathogenic fungi",
+        "fungal virus phytopathogen",
+        "mycovirus crop disease",
+        "mycovirus Fusarium Botrytis Sclerotinia",
+        "mycovirus Trichoderma"
+      ],
+      "weight": 1.0
+    },
+    "hypovirulence-biocontrol": {
+      "label": "低毒力与生物防治",
+      "keywords": [
+        "mycovirus hypovirulence",
+        "mycovirus biological control",
+        "mycovirus virulence attenuation",
+        "transmissible hypovirulence",
+        "mycovirus biocontrol plant disease"
+      ],
+      "weight": 1.0
+    },
+    "virus-host-interaction": {
+      "label": "病毒—真菌互作机制",
+      "keywords": [
+        "mycovirus host interaction",
+        "fungal antiviral RNA interference",
+        "mycovirus RNA silencing",
+        "mycovirus transmission fungal host",
+        "mycovirus replication mechanism"
+      ],
+      "weight": 0.9
+    },
+    "taxonomy-evolution": {
+      "label": "分类、进化与新病毒类群",
+      "keywords": [
+        "mycovirus taxonomy evolution",
+        "fungal RNA virus phylogeny",
+        "chrysovirus partitivirus totivirus",
+        "ambivirus mycovirus",
+        "mycovirus genome organization"
+      ],
+      "weight": 0.8
+    }
+  },
+  "paper_count": {
+    "mode": "at_most",
+    "value": 8
+  },
+  "picks_per_reviewer": 6,
+  "review_mode": "single",
+  "scan_batches": 3,
+  "custom_focus": "Prioritize original studies on mycovirus discovery, genome characterization, virus-host interactions, hypovirulence and biological control of plant-pathogenic fungi. Prefer papers with complete genomes, experimentally supported phenotypes, or clear relevance to plant pathology. Down-rank purely clinical, animal-pathogenic or unrelated virology papers.",
+  "ranking_weights": {
+    "relevance": 0.55,
+    "recency": 0.3,
+    "impact": 0.1,
+    "novelty": 0.05
+  }
+}
