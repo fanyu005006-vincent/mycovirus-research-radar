@@ -1,5 +1,6 @@
 from curate.ranker import describe_importance, rank_papers
 from generate.daily_report import build_daily_report, render_markdown
+from scripts.daily_radar import is_recent_paper, is_virology_paper
 
 
 def _papers():
@@ -48,6 +49,16 @@ def test_report_contains_ranked_sections():
     markdown = render_markdown(report)
     assert report["papers"][0]["title"].startswith("A novel mycovirus")
     assert report["papers"][0]["importance"]["score"] > report["papers"][1]["importance"]["score"]
-    assert "# 真菌病毒科研日报" in markdown
+    assert "# 病毒学研究热点日报" in markdown
     assert "## 重点必读" in markdown
     assert "## 全部文献" in markdown
+
+
+def test_virology_gate_rejects_unrelated_broad_feed_records():
+    assert is_virology_paper({"title": "A novel mycovirus in Fusarium"})
+    assert is_virology_paper({"title": "Phage therapy against bacterial infection"})
+    assert not is_virology_paper({"title": "Mitochondrial copper homeostasis in liver disease"})
+    assert not is_virology_paper({"title": "Unrelated study", "abstract": None, "tldr": None})
+    assert is_recent_paper({"year": 2026}, 2026, 2)
+    assert is_recent_paper({"year": 2025}, 2026, 2)
+    assert not is_recent_paper({"year": 2024}, 2026, 2)
