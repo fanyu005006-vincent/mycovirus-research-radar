@@ -27,6 +27,8 @@ def _normalized_paper(paper: dict, rank: int) -> dict:
         "url": _paper_link(paper),
         "source": paper.get("source", "unknown"),
         "topics": paper.get("topic_tags", []),
+        "priority_category": paper.get("priority_category", "其他病毒学"),
+        "priority_order": paper.get("priority_order", 5),
         "importance": importance,
         "component_scores": {
             "relevance": round(float(scores.get("relevance", 0)) * 100, 1),
@@ -79,13 +81,13 @@ def render_markdown(report: dict) -> str:
     lines = [
         "---",
         f"date: {report['date']}",
-        "type: virology-research-daily",
+        "type: virology-research-weekly",
         f"paper_count: {summary['paper_count']}",
         f"must_read_count: {summary['must_read_count']}",
-        "tags: [病毒学, 科研热点, 科研日报]",
+        "tags: [病毒学, 科研热点, 科研周报]",
         "---",
         "",
-        f"# 病毒学研究热点日报 · {report['date']}",
+        f"# 病毒学研究文献周报 · {report['date']}",
         "",
         "## 今日概览",
         "",
@@ -120,6 +122,7 @@ def render_markdown(report: dict) -> str:
             lines.append(f"   - {item['journal']} {item['year'] or ''}".rstrip())
         if item["topics"]:
             lines.append(f"   - 主题：{', '.join(item['topics'])}")
+        lines.append(f"   - 推送优先级：{item['priority_category']}（第 {item['priority_order']} 级）")
         lines.append("")
 
     lines.extend([
