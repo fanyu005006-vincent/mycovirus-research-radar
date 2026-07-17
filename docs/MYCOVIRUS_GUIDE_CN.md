@@ -64,6 +64,37 @@ DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/..."
 4. 回复论文编号并调用收藏功能，将重点论文同步到 Zotero 或生成 Obsidian 笔记。
 5. 每月检查误报与漏报，调整 `profiles/mycovirus.json` 中的关键词和权重。
 
+## 自动评分与每日日报
+
+每篇论文会获得 0–100 分及 S/A/B/C 四级重要度：
+
+- S（75–100）：重点必读
+- A（60–74.9）：高度重要
+- B（40–59.9）：值得关注
+- C（0–39.9）：一般参考
+
+总分由相关性、时效性、引用影响力和是否首次出现四项组成。系统会同时给出分项分数和中文评分理由，便于人工复核。它是筛选工具，不代表论文质量的最终判断。
+
+本地生成日报：
+
+```bash
+python scripts/daily_radar.py
+```
+
+输出位于 `output/daily-reports/YYYY-MM-DD.json` 和 `YYYY-MM-DD.md`。Markdown 包含 YAML 属性，可直接放进 Obsidian；JSON 适合接网站、数据库或其他自动化。
+
+仓库自带 `.github/workflows/daily-mycovirus-report.yml`，默认每天北京时间 07:30 运行，并将日报作为 GitHub Actions artifact 保存 90 天。也可在 Actions 页面手动运行。
+
+### GitHub Secrets
+
+在仓库 `Settings → Secrets and variables → Actions` 中配置：
+
+- `OPENALEX_EMAIL`：推荐配置；普通联系邮箱即可，不是 API 密钥。
+- `S2_API_KEY`：可选；提高 Semantic Scholar 的稳定性和额度。
+- `TELEGRAM_BOT_TOKEN` 与 `TELEGRAM_CHAT_ID`：可选；两者都配置后自动推送日报摘要。
+
+不配置任何私密密钥时，OpenAlex、PubMed、Europe PMC、Crossref、bioRxiv 等基础来源仍可运行，日报会保存在 Actions artifact 中。
+
 ## 关键词维护建议
 
 - 将你的核心宿主属名加入 `plant-pathogenic-fungi`，如 `Fusarium`、`Sclerotinia`、`Botrytis`、`Trichoderma`。
