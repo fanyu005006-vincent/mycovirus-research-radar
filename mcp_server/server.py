@@ -142,6 +142,26 @@ def generate_digest(papers: list[dict], date: str, topics: dict | None = None) -
 
 
 @mcp.tool()
+def generate_daily_report(papers: list[dict], date: str, top_n: int = 10) -> dict:
+    """Generate a scored, structured daily report in JSON and Markdown.
+
+    Papers should normally be the output of rank_papers so each item contains
+    an importance score, S/A/B/C level, component scores and explanations.
+
+    Args:
+        papers: Ranked paper dictionaries.
+        date: Report date in YYYY-MM-DD format.
+        top_n: Maximum number of papers in the report.
+    """
+    _ensure_sys_path()
+    from generate.daily_report import build_daily_report, render_markdown
+
+    report = build_daily_report(papers, date, top_n=top_n)
+    report["markdown"] = render_markdown(report)
+    return report
+
+
+@mcp.tool()
 async def send_push(date: str, papers: list[dict], platform: str = "telegram") -> str:
     """Format and send daily paper distill to a messaging platform.
 
